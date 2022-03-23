@@ -1,0 +1,27 @@
+---
+- name: Build Directory Structure
+  file:
+    path: "/home/{{ ansible_user_id }}/{{ docker_path }}/homeassistant/{{ item }}"
+    state: directory
+    mode: 0755
+  loop: "{{ directories }}"
+
+- name: Generate configurations
+  template:
+    src: "{{ item.src }}"
+    dest: "/home/{{ ansible_user_id }}/{{ docker_path }}/homeassistant/config/{{ item.dest }}"
+    mode: 0644
+  loop: "{{ config_files }}"
+  notify: restart_homeassistant
+
+- name: Start HomeAssistant Containers
+  community.docker.docker_container:
+    name: homeassistant
+    image: "ghcr.io/home-assistant/home-assistant:{{ image_version }}"
+    hostname: hassio
+    volumes:
+      - "/home/{{ ansible_user_id }}/{{ docker_path }}/homeassistant/config:/config"
+    network_mode: host
+    # published_ports:
+    #   - 8123:8123
+    restart_policy: unless-stopped

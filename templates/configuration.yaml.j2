@@ -1,0 +1,25 @@
+# samples - https://www.home-assistant.io/examples/#example-configurationyaml
+
+homeassistant:
+  auth_providers:
+    - type: homeassistant
+    - type: trusted_networks
+      trusted_networks:
+        - 192.168.1.0/24
+  name: Home
+  currency: USD
+  time_zone:  {{ timezone }}
+  unit_system: imperial
+  temperature_unit: F
+  latitude: {{ latitude }}
+  longitude: {{ longitude }}
+  elevation: {{ elevation }}
+
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml

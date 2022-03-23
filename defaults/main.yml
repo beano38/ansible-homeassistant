@@ -1,0 +1,18 @@
+---
+docker_path: docker
+directories:
+  - config
+
+image_version: stable
+
+config_files:
+  - src: configuration.yaml.j2
+    dest: configuration.yaml
+  - src: secrets.yaml.j2
+    dest: secrets.yaml
+  - src: automations.yaml.j2
+    dest: automations.yaml
+  - src: scenes.yaml.j2
+    dest: scenes.yaml
+  - src: scripts.yaml.j2
+    dest: scripts.yaml
