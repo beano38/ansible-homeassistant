@@ -3,7 +3,7 @@ docker_path: docker
 directories:
   - config
 
-image_version: stable
+image_version: latest
 
 config_files:
   - src: configuration.yaml.j2
